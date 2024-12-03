@@ -53,7 +53,7 @@ ADD https://github.com/guessi/yourls-dont-log-health-checker/archive/master.tar.
   /opt/dont-log-health-checker.tar.gz
 ADD https://github.com/halkeye/YOURLS-OIDC/archive/refs/heads/patch-1.tar.gz \
   /opt/oidc.tar.gz
-ADD https://github.com/halkeye/yourls-auditlogdb/archive/refs/heads/main.tar.gz \
+ADD https://github.com/halkeye/yourls-auditlogdb/archive/9ffcf72a6e4bc66232a930156e533a846e061211.tar.gz \
   /opt/auditlogdb.tar.gz
 
 RUN for i in $(ls /opt/*.tar.gz); do                                          \
