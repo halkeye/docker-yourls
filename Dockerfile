@@ -52,9 +52,9 @@ ADD https://github.com/YOURLS/dont-log-bots/archive/master.tar.gz             \
 ADD https://github.com/guessi/yourls-dont-log-health-checker/archive/master.tar.gz \
   /opt/dont-log-health-checker.tar.gz
 ADD https://github.com/halkeye/YOURLS-OIDC/archive/refs/heads/patch-1.tar.gz \
-  /opt/yourls-oidc.tar.gz
+  /opt/oidc.tar.gz
 ADD https://github.com/halkeye/yourls-auditlogdb/archive/refs/heads/main.tar.gz \
-  /opt/yourls-oidc.tar.gz
+  /opt/auditlogdb.tar.gz
 
 RUN for i in $(ls /opt/*.tar.gz); do                                          \
   plugin_name="$(basename ${i} '.tar.gz')"                              ; \
