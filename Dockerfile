@@ -60,6 +60,8 @@ ADD https://github.com/halkeye/YOURLS-OIDC/archive/refs/heads/patch-1.tar.gz \
   /opt/oidc.tar.gz
 ADD https://github.com/halkeye/yourls-auditlogdb/archive/9ffcf72a6e4bc66232a930156e533a846e061211.tar.gz \
   /opt/auditlogdb.tar.gz
+ADD --chmod=0755 https://raw.githubusercontent.com/joshp23/YOURLS-AuthMgrPlus/ff31aff5c2418277fd0c40bf87cb0ee44ef02249/authMgrPlus/plugin.php \
+  user/plugins/authMgrPlus/plugin.php
 
 RUN for i in $(ls /opt/*.tar.gz); do                                          \
   plugin_name="$(basename ${i} '.tar.gz')"                              ; \
@@ -123,6 +125,4 @@ RUN cat <<EOF >> /opt/yourls/user/config.php
   define( 'OIDC_BYPASS_YOURLS_AUTH', true );
   define( 'OIDC_SCOPES', ['email', 'openid', 'profile'] );
   define( 'OIDC_USERNAME_FIELD', 'preferred_username' );
-
-  \$yourls_user_passwords = [];
 EOF
