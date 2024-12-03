@@ -119,10 +119,24 @@ ADD --chmod=755 https://raw.githubusercontent.com/YOURLS/containers/e914bdbc25db
   /opt/yourls/user/config.php
 
 RUN cat <<EOF >> /opt/yourls/user/config.php
-  define( 'OIDC_PROVIDER_URL', getenv_container('OIDC_PROVIDER_URL') );
-  define( 'OIDC_CLIENT_ID', getenv_container('OIDC_CLIENT_ID') );
-  define( 'OIDC_CLIENT_SECRET', getenv_container('OIDC_CLIENT_SECRET') );
-  define( 'OIDC_BYPASS_YOURLS_AUTH', true );
-  define( 'OIDC_SCOPES', ['email', 'openid', 'profile'] );
-  define( 'OIDC_USERNAME_FIELD', 'preferred_username' );
+define( 'OIDC_PROVIDER_URL', getenv_container('OIDC_PROVIDER_URL') );
+define( 'OIDC_CLIENT_ID', getenv_container('OIDC_CLIENT_ID') );
+define( 'OIDC_CLIENT_SECRET', getenv_container('OIDC_CLIENT_SECRET') );
+define( 'OIDC_BYPASS_YOURLS_AUTH', true );
+define( 'OIDC_SCOPES', ['email', 'openid', 'profile'] );
+define( 'OIDC_USERNAME_FIELD', 'preferred_username' );
+
+\$amp_default_role = "Editor";
+\$amp_role_assignment = array(
+  'administrator' => array(
+    'halkeye'
+  ),
+  'editor' => array(
+  ),
+  'contributor' => array(
+  )
+);
+foreach (explode(",", getenv_container('YOURLS_ALLOWED_OIDC_USERS')) as \$user) {
+  \$yourls_user_passwords[\$user] = random_bytes(10);
+}
 EOF
