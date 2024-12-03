@@ -12,7 +12,8 @@
 # Container image source:
 # - https://hub.docker.com/_/php/tags?page=1&name=8.3-apache-bookworm
 
-FROM php:8.3-apache-bookworm as yourls
+FROM composer:2.8.3 as composer
+FROM php:8.3-apache-bookworm as base
 
 RUN sed -i -e '/^ServerTokens/s/^.*$/ServerTokens Prod/g'                     \
   -e '/^ServerSignature/s/^.*$/ServerSignature Off/g'                \
@@ -21,11 +22,15 @@ RUN sed -i -e '/^ServerTokens/s/^.*$/ServerTokens Prod/g'                     \
 RUN echo "expose_php=Off" > /usr/local/etc/php/conf.d/php-hide-version.ini
 
 RUN apt update                                                             && \
-  apt install -y --no-install-recommends libonig-dev                     && \
+  apt install -y --no-install-recommends libonig-dev git unzip             && \
   apt install -y tzdata
 
 RUN docker-php-ext-install pdo_mysql mysqli mbstring                       && \
   a2enmod rewrite ssl
+
+FROM base as yourls
+
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 ARG UPSTREAM_VERSION=1.9.2
 ENV YOURLS_PACKAGE https://github.com/YOURLS/YOURLS/archive/${UPSTREAM_VERSION}.tar.gz
@@ -62,7 +67,8 @@ RUN for i in $(ls /opt/*.tar.gz); do                                          \
   tar zxvf /opt/${plugin_name}.tar.gz                                     \
   --strip-components=1                                                  \
   -C user/plugins/${plugin_name}                                      ; \
-  done
+  done                                                                && \
+  find user/plugins -name 'composer.lock' -execdir composer install \; ;
 
 ADD conf/ /
 
