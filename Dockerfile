@@ -107,7 +107,7 @@ RUN mkdir -p /tmp/sleeky-extracted                                         && \
   mv -vf /tmp/sleeky-extracted/sleeky-frontend .                         && \
   rm -rvf /tmp/sleeky-extracted
 
-ADD --chmod=755 https://github.com/YOURLS/containers/blob/e914bdbc25dbb7c432dbffc858b3ba9b63b67321/images/yourls/config-container.php \
+ADD --chmod=755 https://raw.githubusercontent.com/YOURLS/containers/e914bdbc25dbb7c432dbffc858b3ba9b63b67321/images/yourls/config-container.php \
   /opt/yourls/user/config.php
 
 RUN cat <<EOF >> /opt/yourls/user/config.php
@@ -118,5 +118,5 @@ RUN cat <<EOF >> /opt/yourls/user/config.php
   define( 'OIDC_SCOPES', ['email', 'openid', 'profile'] );
   define( 'OIDC_USERNAME_FIELD', 'preferred_username' );
 
-  $yourls_user_passwords = [];
+  \$yourls_user_passwords = [];
 EOF
