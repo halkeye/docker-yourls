@@ -136,6 +136,9 @@ define( 'OIDC_USERNAME_FIELD', 'preferred_username' );
   'contributor' => array(
   )
 );
+
+// since i'm generating random bytes for passwords that change every requests, no need to try to re-encrypt them
+define( 'YOURLS_NO_HASH_PASSWORD', true );
 foreach (explode(",", getenv_container('YOURLS_ALLOWED_OIDC_USERS')) as \$user) {
   \$yourls_user_passwords[\$user] = random_bytes(10);
 }
