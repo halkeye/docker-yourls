@@ -12,8 +12,8 @@
 # Container image source:
 # - https://hub.docker.com/_/php/tags?page=1&name=8.3-apache-bookworm
 
-FROM composer:2.8.3 as composer
-FROM php:8.3-apache-bookworm as base
+FROM composer:2.8.4 as composer
+FROM php:8.4-apache-bookworm as base
 
 RUN sed -i -e '/^ServerTokens/s/^.*$/ServerTokens Prod/g'                     \
   -e '/^ServerSignature/s/^.*$/ServerSignature Off/g'                \
