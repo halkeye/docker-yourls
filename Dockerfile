@@ -60,8 +60,12 @@ ADD https://github.com/halkeye/YOURLS-OIDC/archive/refs/heads/patch-1.tar.gz \
   /opt/oidc.tar.gz
 ADD https://github.com/halkeye/yourls-auditlogdb/archive/9ffcf72a6e4bc66232a930156e533a846e061211.tar.gz \
   /opt/auditlogdb.tar.gz
+ADD https://github.com/air66design/air66-yourls-admin-theme/archive/master.tar.gz \
+  /opt/air66-yourls-admin-theme.tar.gz
 ADD --chmod=0755 https://raw.githubusercontent.com/joshp23/YOURLS-AuthMgrPlus/ff31aff5c2418277fd0c40bf87cb0ee44ef02249/authMgrPlus/plugin.php \
   user/plugins/authMgrPlus/plugin.php
+ADD --chmod=0755 https://raw.githubusercontent.com/Diftraku/yourls_reverseproxy/refs/heads/master/reverseproxy/plugin.php \
+  user/plugins/reverseproxy/plugin.php
 
 RUN for i in $(ls /opt/*.tar.gz); do                                          \
   plugin_name="$(basename ${i} '.tar.gz')"                              ; \
