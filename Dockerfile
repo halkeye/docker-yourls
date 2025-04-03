@@ -32,7 +32,7 @@ FROM base as yourls
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
-ARG UPSTREAM_VERSION=1.9.2
+ARG UPSTREAM_VERSION=1.10.0
 ENV YOURLS_PACKAGE https://github.com/YOURLS/YOURLS/archive/${UPSTREAM_VERSION}.tar.gz
 
 RUN mkdir -p /opt/yourls                                                   && \
