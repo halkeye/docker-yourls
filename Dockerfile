@@ -12,7 +12,7 @@
 # Container image source:
 # - https://hub.docker.com/_/php/tags?page=1&name=8.3-apache-bookworm
 
-FROM composer:2.8.8 as composer
+FROM composer:2.8.9 as composer
 FROM php:8.4-apache-bookworm as base
 
 RUN sed -i -e '/^ServerTokens/s/^.*$/ServerTokens Prod/g'                     \
@@ -32,7 +32,7 @@ FROM base as yourls
 
 COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
-ARG UPSTREAM_VERSION=1.10.0
+ARG UPSTREAM_VERSION=1.10.1
 ENV YOURLS_PACKAGE https://github.com/YOURLS/YOURLS/archive/${UPSTREAM_VERSION}.tar.gz
 
 RUN mkdir -p /opt/yourls                                                   && \
